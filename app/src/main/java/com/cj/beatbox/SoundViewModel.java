@@ -30,14 +30,11 @@ public class SoundViewModel extends BaseObservable {
         notifyChange();
     }
 
-    public void click(View view) {
-        Toast.makeText(view.getContext(), getTitle(), Toast.LENGTH_SHORT).show();
-    }
-
     /**
      * 书上原文："数据绑定只要想用那个属性,它就会调用这个静态方法"
      * 在初始化的时候，每一个button都想要 app:soundName 属性，所以会依次调用此方法。
-     * 界面表现为一次弹出Toast，直至所有button对应的Toast弹完
+     * 界面表现为一次弹出Toast，直至所有button对应的Toast弹完.
+     * Button 加属性 app:soundName="@{viewModel.title}"
      *
      * @param button
      * @param assetFileName
@@ -45,5 +42,9 @@ public class SoundViewModel extends BaseObservable {
     @BindingAdapter("app:soundName")
     public static void bindAssetSound(Button button, String assetFileName) {
         Toast.makeText(button.getContext(), assetFileName, Toast.LENGTH_SHORT).show();
+    }
+
+    public void onButtonClicked() {
+        mBeatBox.play(mSound);
     }
 }
